@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
 
 const todo = todoSchemeCreate(sequelize, DataTypes);
 
-sequelize.sync(/*{ force: true }*/);
+sequelize.sync();
 
 export default {
   Sequelize,

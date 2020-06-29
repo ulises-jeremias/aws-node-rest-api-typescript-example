@@ -5,17 +5,11 @@ plugins:
   - serverless-offline
   - serverless-dotenv-plugin # Load .env as environment variables
 
-custom:
-  bundle:
-    ignorePackages:
-      - pg-native
-
 provider:
   name: aws
   runtime: nodejs10.x
   stage: dev
   region: us-east-1
-  timeout: 300
   apiKeys:
     - todoAPI
   # To load environment variables externally

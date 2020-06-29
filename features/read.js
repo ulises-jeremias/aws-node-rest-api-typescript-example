@@ -1,10 +1,10 @@
 import db from "../db";
 
 export const getTodo = async (event, context, callback) => {
-  const todo_id = event.pathParameters.id;
+  const todoId = event.pathParameters.id;
   try {
     const todo = await db.todo.findOne({
-      where: { id: todo_id },
+      where: { id: todoId },
       attributes: ["id", "task", "completed"]
     });
 
@@ -15,12 +15,12 @@ export const getTodo = async (event, context, callback) => {
       })
     };
 
-    callback(null, response);
+    return callback(null, response);
   } catch (error) {
     return callback(null, {
       statusCode: 500,
       body: JSON.stringify({
-        error: `There was an error fetching your todo with id: ${todo_id}.`
+        error: `There was an error fetching your todo with id: ${todoId}.`
       })
     });
   }
@@ -28,9 +28,11 @@ export const getTodo = async (event, context, callback) => {
 
 export const listTodos = async (event, context, callback) => {
   try {
+    console.log('AAAA');
     const todos = await db.todo.findAll({
       attributes: ["id", "task", "completed"]
     });
+    console.log(todos);
 
     const response = {
       statusCode: 200,
@@ -39,7 +41,7 @@ export const listTodos = async (event, context, callback) => {
       })
     };
 
-    callback(null, response);
+    return callback(null, response);
   } catch (error) {
     return callback(null, {
       statusCode: 500,
