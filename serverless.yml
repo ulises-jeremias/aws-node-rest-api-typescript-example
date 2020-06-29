@@ -5,6 +5,11 @@ plugins:
   - serverless-offline
   - serverless-dotenv-plugin # Load .env as environment variables
 
+custom:
+  bundle:
+    ignorePackages:
+      - pg-native
+
 provider:
   name: aws
   runtime: nodejs10.x
