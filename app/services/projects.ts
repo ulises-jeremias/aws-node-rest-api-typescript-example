@@ -13,8 +13,8 @@ export const createProject = (data: ProjectDTO): Promise<any> => {
     Key: { id: uuid.v5() },
     UpdateExpression: `SET ${db.buildExpression(data)}`,
     ExpressionAttributeValues: {
-        ...db.buildAttributes(data)
-    }
+      ...db.buildAttributes(data),
+    },
   });
 };
 
@@ -29,8 +29,8 @@ export const updateProjectById = (id: string, data: ProjectDTO): Promise<any> =>
     Key: { id },
     UpdateExpression: `SET ${db.buildExpression(data)}`,
     ExpressionAttributeValues: {
-        ...db.buildAttributes(data)
-    }
+      ...db.buildAttributes(data),
+    },
   });
 };
 
@@ -39,9 +39,9 @@ export const updateProjectById = (id: string, data: ProjectDTO): Promise<any> =>
  */
 export const findProjects = () => {
   return db.scanItems({
-    TableName: process.env.PROJECTS_DYNAMODB_TABLE!
+    TableName: process.env.PROJECTS_DYNAMODB_TABLE!,
   });
-}
+};
 
 /**
  * Query project by id
@@ -50,9 +50,9 @@ export const findProjects = () => {
 export const findOneProjectById = (id: string) => {
   return db.getItem({
     TableName: process.env.PROJECTS_DYNAMODB_TABLE!,
-    Key: { id }
-});
-}
+    Key: { id },
+  });
+};
 
 /**
  * Delete project by id
@@ -61,6 +61,6 @@ export const findOneProjectById = (id: string) => {
 export const deleteOneProjectById = (id: string) => {
   return db.deleteItem({
     TableName: process.env.ITEM_TABLE!,
-    Key: { id }
+    Key: { id },
   });
-}
+};

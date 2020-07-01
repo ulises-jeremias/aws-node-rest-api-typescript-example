@@ -21,9 +21,9 @@ export const find = async () => {
 
 /**
  * Query project by id
- * 
+ *
  * @param {*} event
- * @param {Context} context 
+ * @param {Context} context
  */
 export const findOne = async (event: any, context: Context) => {
   logContextInfo(context);
@@ -40,10 +40,10 @@ export const findOne = async (event: any, context: Context) => {
 
 /**
  * Create project
- * 
+ *
  * @param {*} event
  * @param {Context} context
- * 
+ *
  */
 export const create = async (event: any, context?: Context) => {
   logContextInfo(context);
@@ -61,10 +61,10 @@ export const create = async (event: any, context?: Context) => {
 
 /**
  * Update project
- * 
+ *
  * @param {*} event
  * @param {Context} context
- * 
+ *
  */
 export const update = async (event: any, context: Context) => {
   logContextInfo(context);
@@ -82,9 +82,9 @@ export const update = async (event: any, context: Context) => {
 
 /**
  * Query project by id
- * 
+ *
  * @param {*} event
- * @param {Context} context 
+ * @param {Context} context
  */
 export const deleteOne = async (event: any, context: Context) => {
   logContextInfo(context);

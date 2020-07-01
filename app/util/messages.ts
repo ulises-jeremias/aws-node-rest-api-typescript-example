@@ -18,10 +18,10 @@ const awsResult = (statusCode: number, code: number, message: string, data?: any
 
 export const success = (data: object) => {
   return awsResult(StatusCode.success, 0, 'success', data);
-}
+};
 
 export const error = (code: number = 1000, message: string) => {
   const result = awsResult(StatusCode.success, code, message);
   console.log(result);
   return result;
-}
+};

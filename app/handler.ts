@@ -1,5 +1,5 @@
 import './config';
-import "reflect-metadata";
+import 'reflect-metadata';
 
 import { Handler } from 'aws-lambda';
 
