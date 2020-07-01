@@ -92,9 +92,7 @@ export const deleteOne = async (event: any, context: Context) => {
   const id: string = event.pathParameters.id;
 
   try {
-    const result = await projectsService.findOneProjectById(id);
-
-    await projectsService.deleteOneProjectById(id);
+    const result = await projectsService.deleteOneProjectById(id);
     return success(result);
   } catch (err) {
     return error(err.code, err.message);
