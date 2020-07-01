@@ -5,9 +5,8 @@ This is a simple REST API example for AWS Lambda By Serverless framework with Ty
 ## Use Cases
 
 * REST API with typescript
-* MongoDB Atlas data storage
+* DynamoDB data storage
 * Multi-environment management under Serverless
-* Mocha unit tests and lambda-tester interface test
 * AWS lambda function log view
 
 ## Invoke the function locally
