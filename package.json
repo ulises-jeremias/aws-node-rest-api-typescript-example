@@ -1,0 +1,53 @@
+{
+  "name": "aws-node-typescript-rest-api-example",
+  "version": "1.0.0",
+  "description": "This is a simple REST API example for AWS Lambda By Serverless framwork with TypeScript and DynamoDB.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "local": "serverless offline",
+    "deploy": "serverless deploy",
+    "test": "exit 0"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "@shiftcoders/dynamo-easy": "^5.6.0",
+    "aws-sdk": "^2.708.0",
+    "dotenv": "^8.2.0",
+    "http2": "^3.3.7",
+    "moment-timezone": "^0.5.31",
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.57",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/dotenv-safe": "^8.1.0",
+    "cross-env": "^7.0.2",
+    "lambda-tester": "^4.0.1",
+    "serverless-offline": "^6.4.0",
+    "serverless-plugin-typescript": "^1.1.9",
+    "ts-node": "^8.10.2",
+    "tslint": "^6.1.2",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ulises-jeremias/aws-node-typescript-rest-api-example.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "TypeScript",
+    "ServerLess",
+    "DynamoDB",
+    "AWS Lambda"
+  ],
+  "author": "Ulises Jeremias <ulisescf.24@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ulises-jeremias/aws-node-typescript-rest-api-example/issues"
+  },
+  "homepage": "https://github.com/ulises-jeremias/aws-node-typescript-rest-api-example#readme"
+}
