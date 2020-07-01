@@ -1,19 +1,16 @@
 import './config';
+import "reflect-metadata";
 
-import { Handler, Context } from 'aws-lambda';
+import { Handler } from 'aws-lambda';
 
 import *  as projectsController from './controller';
 
-export const createProject: Handler = (event: any, context: Context) => {
-  return projectsController.create(event, context);
-};
+export const findProjects: Handler = projectsController.find;
 
-export const updateProject: Handler = (event: any) => projectsController.update(event);
+export const findOneProject: Handler = projectsController.findOne;
 
-export const findProjects: Handler = () => projectsController.find();
+export const createProject: Handler = projectsController.create;
 
-export const findProject: Handler = (event: any, context: Context) => {
-  return projectsController.findOne(event, context);
-};
+export const updateProject: Handler = projectsController.update;
 
-export const deleteProject: Handler = (event: any) => projectsController.deleteOne(event);
+export const deleteProject: Handler = projectsController.deleteOne;

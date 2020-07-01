@@ -13,11 +13,9 @@
     "lint"
   ],
   "dependencies": {
-    "@shiftcoders/dynamo-easy": "^5.6.0",
     "aws-sdk": "^2.708.0",
     "dotenv": "^8.2.0",
     "http2": "^3.3.7",
-    "moment-timezone": "^0.5.31",
     "uuid": "^8.2.0"
   },
   "devDependencies": {

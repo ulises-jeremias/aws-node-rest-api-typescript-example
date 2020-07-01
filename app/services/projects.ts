@@ -1,51 +1,66 @@
 import * as uuid from 'uuid';
 
-import { CreateProjectDTO, UpdateProjectDTO } from '../dto';
-import { DynamoStore } from '@shiftcoders/dynamo-easy';
-import { Project } from '../models';
-
-const projectStore = new DynamoStore(Project);
+import { ProjectDTO } from '../dto';
+import * as db from '../util/dynamodb';
 
 /**
  * Create project
- * @param params
+ * @param {ProjectDTO} data
  */
-export const createProject = (data: CreateProjectDTO): Promise<any> => {
-  const project = {
-    ...data,
-    id: uuid.v5(),
-  };
-  return projectStore.put(project).exec();
+export const createProject = (data: ProjectDTO): Promise<any> => {
+  return db.updateItem({
+    TableName: process.env.ITEM_TABLE!,
+    Key: { id: uuid.v5() },
+    UpdateExpression: `SET ${db.buildExpression(data)}`,
+    ExpressionAttributeValues: {
+        ...db.buildAttributes(data)
+    }
+  });
 };
 
 /**
  * Update a project by id
- * @param id
- * @param data
+ *
+ * @param {ProjectDTO} data
  */
-export const updateProjects = (data: UpdateProjectDTO): Promise<any> => {
-  return projectStore.put(data).exec();
+export const updateProjectById = (id: string, data: ProjectDTO): Promise<any> => {
+  return db.updateItem({
+    TableName: process.env.ITEM_TABLE!,
+    Key: { id },
+    UpdateExpression: `SET ${db.buildExpression(data)}`,
+    ExpressionAttributeValues: {
+        ...db.buildAttributes(data)
+    }
+  });
 };
 
 /**
  * Find projects
  */
 export const findProjects = () => {
-  return projectStore.scan().exec();
+  return db.scanItems({
+    TableName: process.env.PROJECTS_DYNAMODB_TABLE!
+  });
 }
 
 /**
  * Query project by id
- * @param id
+ * @param {string} id
  */
 export const findOneProjectById = (id: string) => {
-  return projectStore.get(id).exec();
+  return db.getItem({
+    TableName: process.env.PROJECTS_DYNAMODB_TABLE!,
+    Key: { id }
+});
 }
 
 /**
  * Delete project by id
- * @param id
+ * @param {string} id
  */
 export const deleteOneProjectById = (id: string) => {
-  return projectStore.delete(id).exec();
+  return db.deleteItem({
+    TableName: process.env.ITEM_TABLE!,
+    Key: { id }
+  });
 }
