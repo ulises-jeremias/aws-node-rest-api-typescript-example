@@ -1,80 +1,51 @@
-service: aws-serverless-example
-
-plugins:
-  - serverless-bundle # Package our functions with Webpack
-  - serverless-offline
-  - serverless-dotenv-plugin # Load .env as environment variables
-
-custom:
-  bundle:
-    ignorePackages:
-      - pg-native
+service: aws-node-rest-api-typescript
 
 provider:
   name: aws
-  runtime: nodejs10.x
-  stage: dev
-  region: us-east-1
-  apiKeys:
-    - todoAPI
-  # To load environment variables externally
-  # rename env.example to .env and uncomment
-  # the following line. Also, make sure to not
-  # commit your .env.
-  #
+  runtime: nodejs12.x
   environment:
-    DB_URL: ${env:DB_URL}
-    DB_USER: ${env:DB_USER}
-    DB_PASS: ${env:DB_PASS}
+    NODE_ENV: development
+
+plugins:
+  - serverless-plugin-typescript 
+  - serverless-offline
 
 package:
+  exclude:
+    - .env.staging
+    - .env.production
   include:
-    - features/**
-    - models/**
+    - .env.development
 
 functions:
-  hello:
-    handler: handler.hello
+  createProject:
+    handler: app/handler.createProject
     events:
       - http:
-          path: hello
-          method: get
-
-  listTodos:
-    handler: features/read.listTodos
-    events:
-      - http:
-          path: todos
-          method: get
-
-  getTodo:
-    handler: features/read.getTodo
-    events:
-      - http:
-          path: todo/{id}
-          method: get
-          private: true
-
-  createTodo:
-    handler: features/create.createTodo
-    events:
-      - http:
-          path: todo
+          path: projects
           method: post
-          private: true
-
-  deleteTodo:
-    handler: features/delete.deleteTodo
+  updateProject:
+    handler: app/handler.updateProject
     events:
       - http:
-          path: todo/{id}
+          path: projects/{id}
+          method: put
+  findProjects:
+    handler: app/handler.findProjects
+    events:
+      - http:
+          path: projects
+          method: get
+  findProject:
+    handler: app/handler.findProject
+    events:
+      - http:
+          path: projects/{id}
+          method: get
+
+  deleteProject:
+    handler: app/handler.deleteProject
+    events:
+      - http:
+          path: projects/{id}
           method: delete
-          private: true
-
-  updateTodo:
-    handler: features/update.updateTodo
-    events:
-      - http:
-          path: todo/{id}
-          method: patch
-          private: true
