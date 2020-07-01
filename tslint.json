@@ -9,7 +9,7 @@
   ],
   "linterOptions": {
     "exclude": [
-      "tests/*books.mock.ts"
+      "tests/*projects.mock.ts"
     ]
   }
 }
