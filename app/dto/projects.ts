@@ -1,5 +1,5 @@
 export class ProjectDTO {
-  id?: string;
-  name: string;
-  description?: string;
+  public id?: string;
+  public projectName: string;
+  public description?: string;
 }

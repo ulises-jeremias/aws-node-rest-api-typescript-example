@@ -1,4 +1,4 @@
-import * as uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ProjectDTO } from '../dto';
 import * as db from '../util/dynamodb';
@@ -9,8 +9,8 @@ import * as db from '../util/dynamodb';
  */
 export const createProject = (data: ProjectDTO): Promise<any> => {
   return db.updateItem({
-    TableName: process.env.ITEM_TABLE!,
-    Key: { id: uuid.v5() },
+    TableName: process.env.PROJECTS_DYNAMODB_TABLE,
+    Key: { id: uuidv4() },
     UpdateExpression: `SET ${db.buildExpression(data)}`,
     ExpressionAttributeValues: {
       ...db.buildAttributes(data),
@@ -25,12 +25,10 @@ export const createProject = (data: ProjectDTO): Promise<any> => {
  */
 export const updateProjectById = (id: string, data: ProjectDTO): Promise<any> => {
   return db.updateItem({
-    TableName: process.env.ITEM_TABLE!,
+    TableName: process.env.PROJECTS_DYNAMODB_TABLE,
     Key: { id },
     UpdateExpression: `SET ${db.buildExpression(data)}`,
-    ExpressionAttributeValues: {
-      ...db.buildAttributes(data),
-    },
+    ExpressionAttributeValues: db.buildAttributes(data),
   });
 };
 
@@ -60,7 +58,7 @@ export const findOneProjectById = (id: string) => {
  */
 export const deleteOneProjectById = (id: string) => {
   return db.deleteItem({
-    TableName: process.env.ITEM_TABLE!,
+    TableName: process.env.PROJECTS_DYNAMODB_TABLE,
     Key: { id },
   });
 };

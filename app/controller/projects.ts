@@ -49,7 +49,6 @@ export const create = async (event: any, context?: Context) => {
   logContextInfo(context);
 
   const data: ProjectDTO = JSON.parse(event.body);
-  console.log(data);
 
   try {
     const result = await projectsService.createProject(data);

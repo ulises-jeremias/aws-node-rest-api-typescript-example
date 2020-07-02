@@ -2,6 +2,14 @@ import { DynamoDB } from 'aws-sdk';
 
 const dynamoDB = new DynamoDB.DocumentClient();
 
+interface PutItemParams {
+  TableName: string;
+  Item: {
+    [key: string]: string | number | undefined | null | boolean | { [key: string]: string } | [string],
+  };
+  ReturnValues?: string;
+}
+
 interface UpdateItemParams {
   TableName: string;
   Key: {
@@ -41,6 +49,24 @@ interface ScanItemsParams {
   Limit?: number;
 }
 
+// Used for put items
+export const putItem = async (
+  params: PutItemParams,
+): Promise<AWS.DynamoDB.DocumentClient.PutItemOutput> => {
+const query = params;
+
+return new Promise((resolve, reject) => {
+  dynamoDB.put(query, (err, result) => {
+    if (err) {
+      console.error(err);
+      reject(err);
+    } else {
+      resolve(result.Attributes);
+    }
+  });
+});
+};
+
 // Used for upserting items
 export const updateItem = async (
     params: UpdateItemParams,
@@ -56,7 +82,7 @@ export const updateItem = async (
         console.error(err);
         reject(err);
       } else {
-        resolve(result);
+        resolve(result.Attributes);
       }
     });
   });
@@ -95,7 +121,7 @@ export const getItem = async (
         console.error(err);
         reject(err);
       } else {
-        resolve(result);
+        resolve(result.Item);
       }
     });
   });
@@ -104,7 +130,7 @@ export const getItem = async (
 // Used for searching tables
 export const scanItems = async (
     params: ScanItemsParams,
-): Promise<AWS.DynamoDB.DocumentClient.ScanOutput> => {
+): Promise<AWS.DynamoDB.DocumentClient.ItemCollectionKeyAttributeMap> => {
   const query = {
     ...params,
   };
@@ -115,7 +141,7 @@ export const scanItems = async (
         console.error(err);
         reject(err);
       } else {
-        resolve(result);
+        resolve(result.Items);
       }
     });
   });
@@ -136,7 +162,7 @@ export const deleteItem = async (
         console.error(err);
         reject(err);
       } else {
-        resolve(result);
+        resolve(result.Attributes);
       }
     });
   });
